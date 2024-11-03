@@ -30,16 +30,21 @@ export default function SignUp() {
     }
 
     try {
+
       const result = await fetch(`/api/user/${username}/${password}`, {
         method: "POST"
       });
 
       if (!result.ok) {
-        throw new Error("Failed to register");
+        toast.error("Failed to register");
+        return;
       }
 
       toast.success("Registration successful");
-      router.push("/sign-in");
+
+      setTimeout(() => {
+        router.push("/sign-in");
+      }, 3000);
 
     } catch (error) {
       toast.error("An error occurred. Please try again");
