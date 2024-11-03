@@ -29,7 +29,7 @@ export default function SignIn() {
         return;
       }
 
-      router.replace("home");
+      router.replace("dashboard");
     } catch (error) {
       toast.error("Error 500");
     }
