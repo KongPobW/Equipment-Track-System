@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const equipSchema = new Schema({
+const equipmentSchema = new Schema({
     eCode: {
         type: String,
         required: true
@@ -14,12 +14,20 @@ const equipSchema = new Schema({
         required: true
     },
     purchaseDate: {
-        type: Date,
+        type: String,
+        required: true
+    },
+    receiveDate: {
+        type: String,
         required: true
     },
     createdDate: {
-        type: Date,
-        default: Date.now
+        type: String,
+        required: true
+    },
+    modifiedDate: {
+        type: String,
+        required: true
     },
     eDetail: {
         type: String,
@@ -29,12 +37,8 @@ const equipSchema = new Schema({
         type: String,
         required: true
     },
-    createdBy: {
-        type: String,
-        required: true
-    }
 });
 
-const Equip = mongoose.models.Equip || mongoose.model("Equip", equipSchema);
+const Equipment = mongoose.models.Equipment || mongoose.model("Equipment", equipmentSchema);
 
-export default Equip;
+export default Equipment;
