@@ -4,6 +4,11 @@ import { useRouter } from "next/router";
 import { useState, FormEvent } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Noto_Sans_Thai } from "next/font/google";
+
+const notoSansThai = Noto_Sans_Thai({
+  subsets: ["latin"],
+});
 
 export default function SignIn() {
   const [username, setUsername] = useState<string>("admin1");
@@ -36,7 +41,7 @@ export default function SignIn() {
   };
 
   return (
-    <div className="h-screen w-screen flex flex-col justify-center gap-4 items-center bg-gray-100 text-gray-800">
+    <div className={`${notoSansThai.className} h-screen w-screen flex flex-col justify-center gap-4 items-center bg-gray-100 text-gray-800`}>
       <form onSubmit={handleSubmit} className="flex flex-col gap-8 rounded-2xl p-12 px-20 bg-white shadow-lg">
         <div className="flex items-center justify-center gap-4">
           <h1 className="uppercase text-2xl font-bold text-blue-600">เข้าสู่ระบบ</h1>
