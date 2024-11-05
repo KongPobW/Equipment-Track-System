@@ -9,7 +9,12 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { Noto_Sans_Thai } from "next/font/google";
 import { useSession } from "next-auth/react";
+
+const notoSansThai = Noto_Sans_Thai({
+    subsets: ["latin"],
+});
 
 const items = [
     {
@@ -40,8 +45,8 @@ export function AppSidebar() {
     const userName = session && session.user && session.user.name ? session.user.name.username : "Guest";
 
     return (
-        <Sidebar>
-            <SidebarContent className="flex flex-col justify-between h-full bg-blue-600 py-4">
+        <Sidebar className={`${notoSansThai.className} h-full`}>
+            <SidebarContent className="flex flex-col justify-between bg-blue-600 py-4">
                 <SidebarGroup className="flex flex-col gap-4">
                     <SidebarGroupLabel className="font-bold text-lg text-white">Equipment Track System</SidebarGroupLabel>
                     <SidebarGroupContent>
