@@ -2,12 +2,10 @@ import SidebarLayout from "@/components/layout/SideBarLayout";
 import EquipmentForm, { FormData, PageForm } from "@/components/EquipmentForm";
 import React from "react";
 import EquipmentManager from "../../utils/equip";
-import { useRouter } from "next/router";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const AddEquip: React.FC = () => {
-    const router = useRouter();
 
     const handleSubmit = async (formData: FormData) => {
         try {
