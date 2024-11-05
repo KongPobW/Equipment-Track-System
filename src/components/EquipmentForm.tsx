@@ -129,7 +129,7 @@ const EquipmentForm: React.FC<EquipmentFormProps> = ({ onSubmit, initialData, mo
                                 เลือกสถานะ
                             </option>
                             <option value="available">พร้อมใช้งาน</option>
-                            <option value="in Use">กำลังใช้งาน</option>
+                            <option value="in use">กำลังใช้งาน</option>
                             <option value="maintenance">บำรุงรักษา</option>
                             <option value="out of service">ใช้งานไม่ได้</option>
                         </select>
