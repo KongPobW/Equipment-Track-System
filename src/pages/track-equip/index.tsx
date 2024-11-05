@@ -90,6 +90,7 @@ function TrackEquipment() {
   return (
     <SideBarLayout>
       <div className="bg-slate-100 w-full px-44 mt-8">
+        <h1 className="text-2xl font-bold">ติดตามอุปกรณ์</h1>
         <DynamicSearchForm onSearch={handleSearch} />
         {equips.length > 0 ? (
           <div className="mt-8 overflow-x-auto">

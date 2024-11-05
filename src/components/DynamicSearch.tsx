@@ -31,8 +31,7 @@ const DynamicSearch: React.FC<DynamicSearchProps> = ({ onSearch }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="w-full flex flex-col gap-10">
-            <h1 className="text-2xl font-bold">ติดตามอุปกรณ์</h1>
+        <form onSubmit={handleSubmit} className="w-full mt-10">
             <div className="flex gap-10 items-center">
                 <div className="mb-4">
                     <label htmlFor="searchType" className="block text-sm font-medium">ค้นหาตาม</label>
