@@ -1,5 +1,13 @@
 import { getCurrentDate } from "../utils/date";
 
+export const FilterType = {
+    all: "all",
+    available: "available",
+    inUse: "in use",
+    maintenance: "maintenance",
+    outOfService: "out of service",
+};
+
 class EquipmentManager {
 
     static async getAll() {
@@ -36,6 +44,42 @@ class EquipmentManager {
         });
 
         return response.ok;
+    }
+
+    static async getAmount(filterType) {
+        if (!filterType && !Object.values(FilterType).includes(filterType)) {
+            throw new Error("filterType is undefined or wrong type");
+        }
+
+        let response;
+
+        if (filterType === "all") {
+            response = await fetch(`/api/equip/amount/${filterType}`, {
+                method: "GET"
+            });
+        } else if (filterType === "available") {
+            response = await fetch(`/api/equip/amount/${filterType}`, {
+                method: "GET"
+            });
+        } else if (filterType === "in use") {
+            response = await fetch(`/api/equip/amount/${filterType}`, {
+                method: "GET"
+            });
+        } else if (filterType === "maintenance") {
+            response = await fetch(`/api/equip/amount/${filterType}`, {
+                method: "GET"
+            });
+        } else if (filterType === "out of service") {
+            response = await fetch(`/api/equip/amount/${filterType}`, {
+                method: "GET"
+            });
+        }
+
+        if (response.ok) {
+            return await response.json();
+        } else {
+            return null;
+        }
     }
 }
 
