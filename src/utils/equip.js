@@ -28,21 +28,15 @@ class EquipmentManager {
         return response.ok;
     }
 
-    // static async edit(id, title, content) {
-    //     if (!id || !title || !content) {
-    //         throw new Error("id, title, and content are undefined");
-    //     }
+    static async edit(formData) {
+        let { eCode, eType, eName, purchaseDate, receiveDate, createdDate, status, eDetail } = formData;
 
-    //     const result = await fetch(`/api/note/${id}/${title}/${content}/${getCurrentDate()}`, {
-    //         method: "PUT"
-    //     });
+        const response = await fetch(`/api/equip/${eCode}/${eType}/${eName}/${purchaseDate}/${receiveDate}/${createdDate}/${getCurrentDate()}/${status}/${eDetail}`, {
+            method: "PUT"
+        });
 
-    //     if (result.ok) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
+        return response.ok;
+    }
 }
 
 export default EquipmentManager;

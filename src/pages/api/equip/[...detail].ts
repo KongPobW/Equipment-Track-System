@@ -59,6 +59,24 @@ export default async function handler(
           return res.status(500).json({ error: "Failed to save equipment" });
         }
 
+      case "PUT":
+        const resultPut = await Equipment.updateOne({
+          eCode: detail[0]
+        }, {
+          eCode: detail[0], eType: detail[1],
+          eName: detail[2],
+          purchaseDate: detail[3],
+          receiveDate: detail[4],
+          modifiedDate: detail[6],
+          status: detail[7],
+          eDetail: detail[8],
+        });
+        if (resultPut.modifiedCount) {
+          return res.status(200).json({ success: true });
+        } else {
+          return res.status(500).json({ success: false });
+        }
+
       default:
         return res.status(405).json({ error: "Method Not Allowed" });
     }

@@ -8,6 +8,8 @@ export interface FormData {
     eName: string;
     purchaseDate: string;
     receiveDate: string;
+    createdDate?: string;
+    modifiedDate?: string;
     status: string;
     eDetail: string;
 }

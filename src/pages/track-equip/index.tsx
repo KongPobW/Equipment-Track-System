@@ -1,6 +1,7 @@
 import DynamicSearchForm from "@/components/DynamicSearch";
 import SideBarLayout from "@/components/layout/SideBarLayout";
 import EquipmentManager from "@/utils/equip";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaEdit, FaCheckCircle, FaTools, FaWrench, FaBan } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
@@ -11,6 +12,9 @@ interface Equipment {
   eType: string;
   eName: string;
   purchaseDate: string;
+  receiveDate: string;
+  createdDate: string;
+  modifiedDate: string;
   status: string;
   eDetail: string;
 }
@@ -18,6 +22,7 @@ interface Equipment {
 function TrackEquipment() {
 
   const [equips, setEquips] = useState<Equipment[]>([]);
+  const router = useRouter();
 
   const handleSearch = async (data: { searchType: string, searchValue: string }) => {
     try {
@@ -40,6 +45,15 @@ function TrackEquipment() {
     } catch (error) {
       toast.error("An error occurred. Please try again.");
     }
+  };
+
+  const handleEdit = (item: Equipment) => {
+    router.push({
+      pathname: "/edit-equip",
+      query: {
+        equip: JSON.stringify(item)
+      }
+    });
   };
 
   useEffect(() => {
@@ -79,7 +93,7 @@ function TrackEquipment() {
         <DynamicSearchForm onSearch={handleSearch} />
         {equips.length > 0 ? (
           <div className="mt-8 overflow-x-auto">
-            <div className="inline-block min-w-[60%]">
+            <div className="inline-block min-w-full">
               <table className="min-w-full bg-white border border-gray-200 shadow-md rounded-lg">
                 <thead className="bg-gray-100">
                   <tr>
@@ -87,6 +101,9 @@ function TrackEquipment() {
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ประเภท</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ชื่อ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่ซื้อ</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่รับ</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่สร้าง</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่แก้ไข</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">สถานะ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">แก้ไข</th>
                   </tr>
@@ -97,12 +114,15 @@ function TrackEquipment() {
                       <td className="px-4 py-2 border-b text-gray-600">{item.eCode}</td>
                       <td className="px-4 py-2 border-b text-gray-600">{item.eType}</td>
                       <td className="px-4 py-2 border-b text-gray-600">{item.eName}</td>
-                      <td className="px-4 py-2 border-b text-gray-600">{item.purchaseDate}</td>
+                      <td className="px-4 py-2 border-b text-gray-600">{item.purchaseDate === "null" ? "-" : item.purchaseDate}</td>
+                      <td className="px-4 py-2 border-b text-gray-600">{item.receiveDate === "null" ? "-" : item.receiveDate}</td>
+                      <td className="px-4 py-2 border-b text-gray-600">{item.createdDate === "null" ? "-" : item.createdDate}</td>
+                      <td className="px-4 py-2 border-b text-gray-600">{item.modifiedDate === "null" ? "-" : item.modifiedDate}</td>
                       <td className="px-4 py-2 border-b text-center text-gray-600">
                         {getStatusIcon(item.status)}
                       </td>
                       <td className="px-4 py-2 border-b text-gray-600">
-                        <button className="text-blue-500 hover:text-blue-700 flex justify-start">
+                        <button className="text-blue-500 hover:text-blue-700 flex justify-start" onClick={() => handleEdit(item)}>
                           <FaEdit />
                         </button>
                       </td>
@@ -122,6 +142,9 @@ function TrackEquipment() {
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ประเภท</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ชื่อ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่ซื้อ</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่รับ</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่สร้าง</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่แก้ไข</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">สถานะ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">แก้ไข</th>
                   </tr>
@@ -132,7 +155,10 @@ function TrackEquipment() {
                     <td className="px-4 py-2 border-b text-gray-600">N/A</td>
                     <td className="px-4 py-2 border-b text-gray-600">N/A</td>
                     <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-center text-gray-600">N/A</td>
+                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
+                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
+                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
+                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
                     <td className="px-4 py-2 border-b text-gray-600">N/A</td>
                   </tr>
                 </tbody>
