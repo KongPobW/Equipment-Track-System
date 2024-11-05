@@ -13,23 +13,23 @@ import { useSession } from "next-auth/react";
 
 const items = [
     {
-        title: "dashboard",
-        url: "#",
+        title: "Dashboard",
+        url: "/dashboard",
         icon: Home,
     },
     {
         title: "ติดตามอุปกรณ์",
-        url: "#",
+        url: "/track-equip",
         icon: Eye,
     },
     {
         title: "เพิ่มอุปกรณ์",
-        url: "#",
+        url: "/add-equip",
         icon: PlusCircle,
     },
     {
         title: "ออกจากระบบ",
-        url: "#",
+        url: "/",
         icon: LogOut,
     },
 ];
