@@ -11,6 +11,7 @@ const DynamicSearch: React.FC<DynamicSearchProps> = ({ onSearch }) => {
 
     const handleFilterSelectValue = (e: ChangeEvent<HTMLSelectElement>) => {
         const selectValue = e.target.value;
+        setSearchValue("");
         setSearchType(selectValue);
 
         if (selectValue === "ทั้งหมด") {
