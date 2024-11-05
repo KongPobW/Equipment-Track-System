@@ -2,10 +2,27 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import Equipment from "../../../models/equip";
 import connectMongoDB from "../../../utils/database";
 
-type Data = {
-  success?: boolean;
-  error?: string;
+type SuccessResponse = {
+  success: boolean;
 };
+
+type ErrorResponse = {
+  error: string;
+};
+
+type EquipmentData = {
+  eCode: string;
+  eType: string;
+  eName: string;
+  purchaseDate: string;
+  receiveDate?: string;
+  createdDate?: string;
+  modifiedDate?: string;
+  status: string;
+  eDetail: string;
+};
+
+type Data = SuccessResponse | ErrorResponse | EquipmentData[];
 
 export default async function handler(
   req: NextApiRequest,
@@ -22,8 +39,8 @@ export default async function handler(
     }
 
     switch (req.method) {
+
       case "POST":
-        console.log(detail)
         const newEquip = new Equipment({
           eCode: detail[0],
           eType: detail[1],
@@ -33,13 +50,13 @@ export default async function handler(
           createdDate: detail[5],
           modifiedDate: detail[6],
           status: detail[7],
-          eDetail: detail[8]
+          eDetail: detail[8],
         });
         const resultPost = await newEquip.save();
         if (resultPost) {
           return res.status(200).json({ success: true });
         } else {
-          return res.status(500).json({ success: false });
+          return res.status(500).json({ error: "Failed to save equipment" });
         }
 
       default:

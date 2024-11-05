@@ -2,17 +2,17 @@ import { getCurrentDate } from "../utils/date";
 
 class EquipmentManager {
 
-    // static async getAll() {
-    //     const res = await fetch(`/api/note/${username}`, {
-    //         method: "GET"
-    //     });
+    static async getAll() {
+        const response = await fetch("/api/equip/get-all", {
+            method: "GET"
+        });
 
-    //     if (res.ok) {
-    //         return await res.json();
-    //     } else {
-    //         return null;
-    //     }
-    // }
+        if (response.ok) {
+            return await response.json();
+        } else {
+            return null;
+        }
+    }
 
     static async add(formData) {
         let { eCode, eType, eName, purchaseDate, receiveDate, status, eDetail } = formData;
@@ -35,22 +35,6 @@ class EquipmentManager {
 
     //     const result = await fetch(`/api/note/${id}/${title}/${content}/${getCurrentDate()}`, {
     //         method: "PUT"
-    //     });
-
-    //     if (result.ok) {
-    //         return true;
-    //     } else {
-    //         return false;
-    //     }
-    // }
-
-    // static async delete(id) {
-    //     if (!id) {
-    //         throw new Error("id is undefined");
-    //     }
-
-    //     const result = await fetch(`/api/note/${id}`, {
-    //         method: "DELETE"
     //     });
 
     //     if (result.ok) {
