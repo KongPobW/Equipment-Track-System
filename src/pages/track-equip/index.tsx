@@ -3,7 +3,7 @@ import SideBarLayout from "@/components/layout/SideBarLayout";
 import EquipmentManager from "@/utils/equip";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaCheckCircle, FaTools, FaWrench, FaBan } from "react-icons/fa";
+import { FaEdit, FaCheckCircle, FaTools, FaWrench, FaBan, FaArrowUp } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -20,20 +20,17 @@ interface EquipmentData {
 }
 
 function TrackEquipment() {
-
   const [equips, setEquips] = useState<EquipmentData[]>([]);
+  const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
   const router = useRouter();
 
   const handleSearch = async (data: { searchType: string, searchValue: string }) => {
     try {
-
       if (data.searchType === "ทั้งหมด") {
         const equipsData = await EquipmentManager.getAll();
-
         if (equipsData) {
           setEquips(equipsData);
         }
-
       } else {
         const response = await fetch(`/api/search/${data.searchType}/${data.searchValue}`);
         if (response.ok) {
@@ -41,7 +38,6 @@ function TrackEquipment() {
           setEquips(result);
         }
       }
-
     } catch (error) {
       toast.error("An error occurred. Please try again.");
     }
@@ -51,15 +47,18 @@ function TrackEquipment() {
     router.push({
       pathname: "/edit-equip",
       query: {
-        equip: JSON.stringify(item)
-      }
+        equip: JSON.stringify(item),
+      },
     });
+  };
+
+  const handleScrollTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   useEffect(() => {
     const fetchEquips = async () => {
       const equipsData = await EquipmentManager.getAll();
-
       if (equipsData) {
         setEquips(equipsData);
       }
@@ -72,6 +71,20 @@ function TrackEquipment() {
     if (!localStorage.getItem("equip-track-user")) {
       router.replace("/sign-in");
     }
+
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
 
   const getStatusIcon = (status: string) => {
@@ -95,7 +108,7 @@ function TrackEquipment() {
 
   return (
     <SideBarLayout>
-      <div className="w-full px-4 md:px-8 lg:px-20 xl:px-44 mt-4 md:mt-6 lg:mt-8">
+      <div className="w-full px-4 md:px-8 lg:px-20 xl:px-44 my-4 md:my-6 lg:my-8">
         <h1 className="text-2xl font-bold">ติดตามอุปกรณ์</h1>
         <DynamicSearchForm onSearch={handleSearch} />
         {equips.length > 0 ? (
@@ -123,15 +136,26 @@ function TrackEquipment() {
                       <td className="px-4 py-2 border-b text-gray-600">{item.eType}</td>
                       <td className="px-4 py-2 border-b text-gray-600">{item.eName}</td>
                       <td className="px-4 py-2 border-b text-gray-600">{item.eDetail}</td>
-                      <td className="px-4 py-2 border-b text-gray-600">{item.purchaseDate === "null" ? "-" : item.purchaseDate}</td>
-                      <td className="px-4 py-2 border-b text-gray-600">{item.receiveDate === "null" ? "-" : item.receiveDate}</td>
-                      <td className="px-4 py-2 border-b text-gray-600">{item.createdDate === "null" ? "-" : item.createdDate}</td>
-                      <td className="px-4 py-2 border-b text-gray-600">{item.modifiedDate === "null" ? "-" : item.modifiedDate}</td>
+                      <td className="px-4 py-2 border-b text-gray-600">
+                        {item.purchaseDate === "null" ? "-" : item.purchaseDate}
+                      </td>
+                      <td className="px-4 py-2 border-b text-gray-600">
+                        {item.receiveDate === "null" ? "-" : item.receiveDate}
+                      </td>
+                      <td className="px-4 py-2 border-b text-gray-600">
+                        {item.createdDate === "null" ? "-" : item.createdDate}
+                      </td>
+                      <td className="px-4 py-2 border-b text-gray-600">
+                        {item.modifiedDate === "null" ? "-" : item.modifiedDate}
+                      </td>
                       <td className="px-4 py-2 border-b text-center text-gray-600">
                         {getStatusIcon(item.status)}
                       </td>
                       <td className="px-4 py-2 border-b text-gray-600">
-                        <button className="text-blue-500 hover:text-blue-700 flex justify-start" onClick={() => handleEdit(item)}>
+                        <button
+                          className="text-blue-500 hover:text-blue-700 flex justify-start"
+                          onClick={() => handleEdit(item)}
+                        >
                           <FaEdit />
                         </button>
                       </td>
@@ -161,16 +185,9 @@ function TrackEquipment() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
-                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
+                    <td colSpan={10} className="px-4 py-2 border-b text-center text-gray-600">
+                      ไม่พบข้อมูล
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -178,6 +195,17 @@ function TrackEquipment() {
           </div>
         )}
       </div>
+
+      {showScrollTop && (
+        <button
+          onClick={handleScrollTop}
+          className="fixed bottom-4 right-4 bg-blue-500 p-3 rounded-full text-white shadow-lg hover:bg-blue-700 transition"
+          aria-label="Scroll to top"
+        >
+          <FaArrowUp />
+        </button>
+      )}
+
       <ToastContainer />
     </SideBarLayout>
   );
