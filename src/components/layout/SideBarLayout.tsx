@@ -10,7 +10,7 @@ export default function SidebarLayout({ children }: { children: React.ReactNode 
     return (
         <SidebarProvider>
             <AppSidebar />
-            <main className={`${notoSansThai.className} w-full`}>
+            <main className={`${notoSansThai.className} w-full bg-slate-100`}>
                 {children}
             </main>
         </SidebarProvider>
