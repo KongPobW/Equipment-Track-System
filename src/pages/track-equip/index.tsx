@@ -107,6 +107,7 @@ function TrackEquipment() {
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">รหัส</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ประเภท</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ชื่อ</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">รายละเอียด</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่ซื้อ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่รับ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่สร้าง</th>
@@ -121,6 +122,7 @@ function TrackEquipment() {
                       <td className="px-4 py-2 border-b text-gray-600">{item.eCode}</td>
                       <td className="px-4 py-2 border-b text-gray-600">{item.eType}</td>
                       <td className="px-4 py-2 border-b text-gray-600">{item.eName}</td>
+                      <td className="px-4 py-2 border-b text-gray-600">{item.eDetail}</td>
                       <td className="px-4 py-2 border-b text-gray-600">{item.purchaseDate === "null" ? "-" : item.purchaseDate}</td>
                       <td className="px-4 py-2 border-b text-gray-600">{item.receiveDate === "null" ? "-" : item.receiveDate}</td>
                       <td className="px-4 py-2 border-b text-gray-600">{item.createdDate === "null" ? "-" : item.createdDate}</td>
@@ -148,6 +150,7 @@ function TrackEquipment() {
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">รหัส</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ประเภท</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ชื่อ</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">รายละเอียด</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่ซื้อ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่รับ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่สร้าง</th>
@@ -158,6 +161,7 @@ function TrackEquipment() {
                 </thead>
                 <tbody>
                   <tr>
+                    <td className="px-4 py-2 border-b text-gray-600">N/A</td>
                     <td className="px-4 py-2 border-b text-gray-600">N/A</td>
                     <td className="px-4 py-2 border-b text-gray-600">N/A</td>
                     <td className="px-4 py-2 border-b text-gray-600">N/A</td>
