@@ -1,5 +1,6 @@
 import SideBarLayout from "@/components/layout/SideBarLayout";
 import EquipmentManager, { FilterType } from "@/utils/equip";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 type DashBoardDataType = {
@@ -13,6 +14,13 @@ type DashBoardDataType = {
 function DashBoard() {
 
   const [dashBoardData, setDashBoardData] = useState<DashBoardDataType>();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!localStorage.getItem("equip-track-user")) {
+      router.replace("/sign-in");
+    }
+  }, []);
 
   useEffect(() => {
     const fetchAmount = async () => {

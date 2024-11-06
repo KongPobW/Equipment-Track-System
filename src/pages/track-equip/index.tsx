@@ -68,6 +68,12 @@ function TrackEquipment() {
     fetchEquips();
   }, []);
 
+  useEffect(() => {
+    if (!localStorage.getItem("equip-track-user")) {
+      router.replace("/sign-in");
+    }
+  }, []);
+
   const getStatusIcon = (status: string) => {
     switch (status.toLowerCase()) {
       case "available":

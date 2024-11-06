@@ -10,6 +10,7 @@ import {
     SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Noto_Sans_Thai } from "next/font/google";
+import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
 
 const notoSansThai = Noto_Sans_Thai({
@@ -40,9 +41,16 @@ const items = [
 ];
 
 export function AppSidebar() {
-    
+
     const { data: session } = useSession();
     const userName = session && session.user && session.user.name ? session.user.name.username : "Guest";
+
+    const router = useRouter()
+
+    const handleLogout = async () => {
+        localStorage.clear();
+        router.replace("/sign-in");
+    };
 
     return (
         <Sidebar className={`${notoSansThai.className} h-full`}>
@@ -54,10 +62,17 @@ export function AppSidebar() {
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton className="hover:bg-blue-500">
-                                        <a href={item.url} className="flex items-center p-2 rounded transition duration-150">
-                                            <item.icon className="mr-3 text-white" />
-                                            <span className="text-white">{item.title}</span>
-                                        </a>
+                                        {item.title === "ออกจากระบบ" ? (
+                                            <div className="flex items-center p-2 rounded transition duration-150" onClick={handleLogout}>
+                                                <item.icon className="mr-3 text-white" />
+                                                <span className="text-white">{item.title}</span>
+                                            </div>
+                                        ) : (
+                                            <a href={item.url} className="flex items-center p-2 rounded transition duration-150">
+                                                <item.icon className="mr-3 text-white" />
+                                                <span className="text-white">{item.title}</span>
+                                            </a>
+                                        )}
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}

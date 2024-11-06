@@ -1,7 +1,7 @@
 import { signIn } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Noto_Sans_Thai } from "next/font/google";
@@ -34,11 +34,19 @@ export default function SignIn() {
         return;
       }
 
+      localStorage.setItem("equip-track-user", JSON.stringify(username));
       router.replace("dashboard");
+
     } catch (error) {
       toast.error("Error 500");
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("equip-track-user")) {
+      router.replace("/dashboard");
+    }
+  }, []);
 
   return (
     <div className={`${notoSansThai.className} h-screen w-screen flex flex-col justify-center gap-4 items-center bg-gray-100 text-gray-800`}>

@@ -1,11 +1,14 @@
 import SidebarLayout from "@/components/layout/SideBarLayout";
 import EquipmentForm, { FormData, PageForm } from "@/components/EquipmentForm";
-import React from "react";
+import React, { useEffect } from "react";
 import EquipmentManager from "../../utils/equip";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useRouter } from "next/router";
 
 const AddEquip: React.FC = () => {
+
+    const router = useRouter();
 
     const handleSubmit = async (formData: FormData) => {
         try {
@@ -20,6 +23,12 @@ const AddEquip: React.FC = () => {
             toast.error("An error occurred. Please try again");
         }
     };
+
+    useEffect(() => {
+        if (!localStorage.getItem("equip-track-user")) {
+            router.replace("/sign-in");
+        }
+    }, []);
 
     return (
         <SidebarLayout>

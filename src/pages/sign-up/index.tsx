@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import { useRouter } from "next/router";
 import "react-toastify/dist/ReactToastify.css";
@@ -55,6 +55,12 @@ export default function SignUp() {
       toast.error("An error occurred. Please try again");
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("equip-track-user")) {
+      router.replace("/dashboard");
+    }
+  }, []);
 
   return (
     <div className={`${notoSansThai.className} h-screen w-screen flex flex-col justify-center gap-4 items-center bg-gray-100 text-gray-800`}>
