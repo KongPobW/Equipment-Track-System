@@ -11,7 +11,6 @@ export default function SidebarLayout({ children }: { children: React.ReactNode 
         <SidebarProvider>
             <AppSidebar />
             <main className={`${notoSansThai.className} w-full`}>
-                {/* <SidebarTrigger /> */}
                 {children}
             </main>
         </SidebarProvider>

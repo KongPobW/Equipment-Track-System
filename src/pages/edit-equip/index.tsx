@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
 
-const EditEquip: React.FC = () => {
+const EditEquip = () => {
 
     const router = useRouter();
     const { equip } = router.query;
@@ -41,6 +41,6 @@ const EditEquip: React.FC = () => {
             <ToastContainer />
         </SidebarLayout>
     );
-}
+};
 
-export default EditEquip
+export default EditEquip;

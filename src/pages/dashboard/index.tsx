@@ -3,7 +3,7 @@ import EquipmentManager, { FilterType } from "@/utils/equip";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-type DashBoardDataType = {
+type DashBoardData = {
   amountAll: number;
   amountAvailable: number;
   amountInUse: number;
@@ -13,7 +13,7 @@ type DashBoardDataType = {
 
 function DashBoard() {
 
-  const [dashBoardData, setDashBoardData] = useState<DashBoardDataType>();
+  const [dashBoardData, setDashBoardData] = useState<DashBoardData>();
   const router = useRouter();
 
   useEffect(() => {

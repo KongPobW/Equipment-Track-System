@@ -16,6 +16,7 @@ type SignUpValues = {
 };
 
 export default function SignUp() {
+
   const [values, setValues] = useState<SignUpValues>({
     username: "",
     password: "",

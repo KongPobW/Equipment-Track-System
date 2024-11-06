@@ -25,6 +25,7 @@ interface EquipmentFormProps {
 }
 
 const EquipmentForm: React.FC<EquipmentFormProps> = ({ onSubmit, initialData, mode }) => {
+
     const initialFormData: FormData = {
         eCode: "",
         eType: "",
