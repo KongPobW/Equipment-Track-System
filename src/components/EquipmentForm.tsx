@@ -79,7 +79,7 @@ const EquipmentForm: React.FC<EquipmentFormProps> = ({ onSubmit, initialData, mo
                     </button>
                 </div>
             </div>
-            <div className="w-full bg-white space-y-10">
+            <div className="w-full bg-inherit space-y-10">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-2">
                         <label className="block text-sm font-semibold">รหัสอุปกรณ์</label>
