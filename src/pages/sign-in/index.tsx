@@ -72,7 +72,7 @@ export default function SignIn() {
           className="bg-transparent p-4 border border-solid border-slate-500 rounded-md w-full text-base focus:outline-none"
         />
         {error && (
-          <div className="mt-2 text-rose-500 font-bold">{error}</div>
+          <div className="text-rose-500 font-bold">{error}</div>
         )}
         <button type="submit" className="py-4 px-8 border-none font-bold cursor-pointer rounded-md text-base uppercase bg-blue-600 text-white hover:bg-blue-500">
           เข้าสู่ระบบ
