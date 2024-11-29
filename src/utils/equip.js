@@ -46,6 +46,14 @@ class EquipmentManager {
         return response.ok;
     }
 
+    static async delete(eCode) {
+        const response = await fetch(`/api/equip/${eCode}`, {
+            method: "DELETE"
+        });
+
+        return response.ok;
+    }
+
     static async getAmount(filterType) {
         if (!filterType && !Object.values(FilterType).includes(filterType)) {
             throw new Error("filterType is undefined or wrong type");

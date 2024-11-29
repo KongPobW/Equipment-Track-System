@@ -56,7 +56,7 @@ export default async function handler(
         if (resultPost) {
           return res.status(200).json({ success: true });
         } else {
-          return res.status(500).json({ error: "Failed to save equipment" });
+          return res.status(500).json({ success: false });
         }
 
       case "PUT":
@@ -72,6 +72,15 @@ export default async function handler(
           eDetail: detail[8],
         });
         if (resultPut.modifiedCount) {
+          return res.status(200).json({ success: true });
+        } else {
+          return res.status(500).json({ success: false });
+        }
+
+      case "DELETE":
+        const eCode = detail[0];
+        const resultDelete = await Equipment.deleteOne({ eCode: eCode });
+        if (resultDelete) {
           return res.status(200).json({ success: true });
         } else {
           return res.status(500).json({ success: false });
