@@ -3,7 +3,7 @@ import SideBarLayout from "@/components/layout/SideBarLayout";
 import EquipmentManager from "@/utils/equip";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
-import { FaEdit, FaCheckCircle, FaTools, FaWrench, FaBan, FaArrowUp } from "react-icons/fa";
+import { FaEdit, FaCheckCircle, FaTools, FaWrench, FaBan, FaArrowUp, FaTrash } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -23,6 +23,13 @@ function TrackEquipment() {
   const [equips, setEquips] = useState<EquipmentData[]>([]);
   const [showScrollTop, setShowScrollTop] = useState<boolean>(false);
   const router = useRouter();
+
+  const refreshEquips = async () => {
+    const equipsData = await EquipmentManager.getAll();
+    if (equipsData) {
+      setEquips(equipsData);
+    }
+  };
 
   const handleSearch = async (data: { searchType: string, searchValue: string }) => {
     try {
@@ -50,6 +57,16 @@ function TrackEquipment() {
         equip: JSON.stringify(item),
       },
     });
+  };
+
+  const handleDelete = async (eCode: string) => {
+    const isSuccess = await EquipmentManager.delete(eCode);
+    if (isSuccess) {
+      toast.success("Successfully deleting equipment");
+    } else {
+      toast.error("Failed to delete equipment");
+    }
+    refreshEquips();
   };
 
   const handleScrollTop = () => {
@@ -127,6 +144,7 @@ function TrackEquipment() {
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่แก้ไข</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">สถานะ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">แก้ไข</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ลบ</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -159,6 +177,14 @@ function TrackEquipment() {
                           <FaEdit />
                         </button>
                       </td>
+                      <td className="px-4 py-2 border-b text-gray-600">
+                        <button
+                          className="text-red-500 hover:text-red-700 flex justify-start"
+                          onClick={() => handleDelete(item.eCode)}
+                        >
+                          <FaTrash />
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -181,11 +207,12 @@ function TrackEquipment() {
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">วันที่แก้ไข</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">สถานะ</th>
                     <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">แก้ไข</th>
+                    <th className="px-4 py-2 border-b text-left font-semibold text-gray-700">ลบ</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td colSpan={10} className="px-4 py-2 border-b text-center text-gray-600">
+                    <td colSpan={11} className="px-4 py-2 border-b text-center text-gray-600">
                       ไม่พบข้อมูล
                     </td>
                   </tr>
